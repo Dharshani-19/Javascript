@@ -351,7 +351,7 @@
 //         console.log("Please enter the valid email");
 //         answer.innerHTML="Please enter the valid email";
 //     }
-    
+
 // }
 
 //24.
@@ -430,103 +430,163 @@
 //     },1000);
 // }
 
+//31.
+// function dragstart(event){
+//     event.dataTransfer.setData("text/plain",event.target.innerText);
+// }
+// const p1=document.getElementById("dragData");
+// p1.addEventListener("dragstart",dragstart);
+// const target=document.getElementById("target");
+// target.addEventListener("dragover",(event)=>{
+//     event.preventDefault();
+// });
+// target.addEventListener("drop",(event)=>{
+//     event.preventDefault();
+//     const data=event.dataTransfer.getData("text/plain");
+//     event.target.append(data);
+// });
+
 //32.
-// function getDragAfterElement(container,y){
-//     const dElements=[...container.querySelectorAll('li:not(.dragging)')]
-//     return dElements.reduce((closest,child)=>{
-//         const box=child.getBoundingClientReact();
-//         const offset=y-box.top-box.height/2;
-//         if(offset<0 && offset>closest.offset){
-//             return {offset:offset,element:child};
-//         }else{
+// const list = document.querySelector('.list');
+// let drag = null;
+// list.addEventListener('dragstart', (e) => {
+//     drag = e.target;
+//     e.target.classList.add('dragging');
+// });
+// list.addEventListener('dragend', (e) => {
+//     e.target.classList.remove('dragging');
+//     document.querySelectorAll('sort')
+//         .forEach(item => item.classList.remove('over'));
+//     drag = null;
+// });
+// list.addEventListener('dragover', (e) => {
+//     e.preventDefault();
+//     const drageOver = getDrag(list, e.clientY);
+//     document.querySelectorAll('sort').forEach
+//         (item => itemm.classList.remove('over'));
+//     if (drageOver) {
+//         drageOver.classList.remove('over');
+//         list.insertBefore(drag, drageOver);
+//     } else {
+//         list.appendChild(drag);
+//     }
+// });
+// function getDrag(container, y) {
+//     const dElements = [...container.querySelectorAll('.sort:not(.dragging)')];
+//     return dElements.reduce((closest, child) => {
+//         const box = child.getBoundingClientRect();
+//         const offset = y - box.top - box.height / 2;
+//         if (offset < 0 && offset > closest.offset) {
+//             return { offset: offset, element: child };
+//         } else {
 //             return closest;
 //         }
-//     },{offset:Number.NEGATIVE_INFINITY}).element;
+//     }, { offset: Number.NEGATIVE_INFINITY }).element;
 // }
-// const list=document.getElementById('list');
-// let dragged=null;
-// list.querySelectorAll('li').forEach(item=>{
-//     item.addEventListener('dragstart',()=>{
-//         dragged=item;
-//         item.classList.add('dragging');
-//     });
-//     item.addEventListener('dragend',()=>{
-//         dragged=null;
-//         item.classList.remove('dragging');
-//     })
-// })
-// list.addEventListener('dragover',e=>{
-//     e.preventDefault();
-//     const afterElement=getDragAfterElement(list,e.clientY);
-//     if(afterElement==null){
-//         list.appendChild(dragged);
-//     }else{
-//         list.insertBefore(dragged,afterElement);
-//     }
-// })
 
-//33.
-// document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
-//   const dropZoneElement = inputElement.closest(".drop-zone");
 
-//   dropZoneElement.addEventListener("click", (e) => {
-//     inputElement.click();
+//34.
+// const columns = document.querySelectorAll(".task-column");
+// const tasks = document.querySelectorAll(".task");
+
+// tasks.forEach((task) => {
+//   task.addEventListener("dragstart", (event) => {
+//     task.id = "dragged-task";
+//     event.dataTransfer.effectAllowed = "move";
+//     event.dataTransfer.setData("task", "");
 //   });
 
-//   inputElement.addEventListener("change", (e) => {
-//     if (inputElement.files.length) {
-//       updateThumbnail(dropZoneElement, inputElement.files[0]);
-//     }
-//   });
-
-//   dropZoneElement.addEventListener("dragover", (e) => {
-//     e.preventDefault();
-//     dropZoneElement.classList.add("drop-zone--over");
-//   });
-
-//   ["dragleave", "dragend"].forEach((type) => {
-//     dropZoneElement.addEventListener(type, (e) => {
-//       dropZoneElement.classList.remove("drop-zone--over");
-//     });
-//   });
-
-//   dropZoneElement.addEventListener("drop", (e) => {
-//     e.preventDefault();
-
-//     if (e.dataTransfer.files.length) {
-//       inputElement.files = e.dataTransfer.files;
-//       updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
-//     }
-
-//     dropZoneElement.classList.remove("drop-zone--over");
+//   task.addEventListener("dragend", (event) => {
+//     task.removeAttribute("id");
 //   });
 // });
-// function updateThumbnail(dropZoneElement, file) {
-//   let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
-
-//   if (dropZoneElement.querySelector(".drop-zone__prompt")) {
-//     dropZoneElement.querySelector(".drop-zone__prompt").remove();
+// function makePlaceholder(draggedTask) {
+//   const placeholder = document.createElement("li");
+//   placeholder.classList.add("placeholder");
+//   placeholder.style.height = `${draggedTask.offsetHeight}px`;
+//   return placeholder;
+// }
+// function movePlaceholder(event) {
+//   if (!event.dataTransfer.types.includes("task")) {
+//     return;
 //   }
-
-//   if (!thumbnailElement) {
-//     thumbnailElement = document.createElement("div");
-//     thumbnailElement.classList.add("drop-zone__thumb");
-//     dropZoneElement.appendChild(thumbnailElement);
-//   }
-
-//   thumbnailElement.dataset.label = file.name;
-
-//   if (file.type.startsWith("image/")) {
-//     const reader = new FileReader();
-
-//     reader.readAsDataURL(file);
-//     reader.onload = () => {
-//       thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
-//     };
-//   } else {
-//     thumbnailElement.style.backgroundImage = null;
+//   event.preventDefault();
+//   const draggedTask = document.getElementById("dragged-task");
+//   const column = event.currentTarget;
+//   const tasks = column.children[1];
+//   const existingPlaceholder = column.querySelector(".placeholder");
+// if (existingPlaceholder) {
+//   const placeholderRect = existingPlaceholder.getBoundingClientRect();
+//   if (
+//     placeholderRect.top <= event.clientY &&
+//     placeholderRect.bottom >= event.clientY
+//   ) {
+//     return;
 //   }
 // }
+// for (const task of tasks.children) {
+//   if (task.getBoundingClientRect().bottom >= event.clientY) {
+//     if (task === existingPlaceholder) return;
+//     existingPlaceholder?.remove();
+//     if (task === draggedTask || task.previousElementSibling === draggedTask)
+//       return;
+//     tasks.insertBefore(
+//       existingPlaceholder ?? makePlaceholder(draggedTask),
+//       task,
+//     );
+//     return;
+//   }
+// }
+//   existingPlaceholder?.remove();
+//   if (tasks.lastElementChild === draggedTask) return;
+//   tasks.append(existingPlaceholder ?? makePlaceholder(draggedTask));
+// }
+// columns.forEach((column) => {
+//   column.addEventListener("dragover", movePlaceholder);
+//   column.addEventListener("dragleave", (event) => {
+//     if (column.contains(event.relatedTarget)) return;
+//     const placeholder = column.querySelector(".placeholder");
+//     placeholder?.remove();
+//   });
+//   column.addEventListener("drop", (event) => {
+//     event.preventDefault();
+
+//     const draggedTask = document.getElementById("dragged-task");
+//     const placeholder = column.querySelector(".placeholder");
+//     if (!placeholder) return;
+//     draggedTask.remove();
+//     column.children[1].insertBefore(draggedTask, placeholder);
+//     placeholder.remove();
+//   });
+// });
+
+35.
+const container = document.querySelector('.container');
+// const URL = 'https://dog.ceo/api/breeds/image/random'
+function loadImag(num = 10) {
+    let i = 0;
+    while (i < num) {
+        // fetch('https://dog.ceo/api/breeds/image/random')
+        // .then(res=>res.json())
+        // .then(data=>{
+        //     const img=document.createElement('img');
+        //     img.src=`${data.message}`
+        //     container.appendChild(img);
+        // })
+        const data = document.createElement('p');
+        console.log(i);
+        container.innerHTML=i;
+        container.appendChild(data);
+        i++;
+    }
+}
+loadImag();
+window.addEventListener('scroll', () => {
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+        loadImag();
+    }
+})
+
 
 //36.
 // const container=document.querySelector('.container');
@@ -552,21 +612,225 @@
 // })
 
 //38.
-function dbounce(func,delay=500){
-    let timeout;
-    return function(...args){
-        clearTimeout(timeout);
-        timeout=setTimeout(()=>{
-            func.apply(this,args);
-        },delay);
-    };
-}
-let searchBox=document.getElementById('datas');
+// function dbounce(func,delay=500){
+//     let timeout;
+//     return function(...args){
+//         clearTimeout(timeout);
+//         timeout=setTimeout(()=>{
+//             func.apply(this,args);
+//         },delay);
+//     };
+// }
+// let searchBox=document.getElementById('datas');
 
-let a=document.getElementById('a');
-function data(){
-console.log("The value is ");
-a.innerHTML="the debounce is applied after 500ms",searchBox.value;
-}
-const change=dbounce(()=>data());
+// let a=document.getElementById('a');
+// function data(){
+// console.log("The value is ");
+// a.innerHTML="the debounce is applied after 500ms",searchBox.value;
+// }
+// const change=dbounce(()=>data());
 
+//39.
+// function dbounce(func,delay=500){
+//     let timeout;
+//     return function(...args){
+//         clearTimeout(timeout);
+//         timeout=setTimeout(()=>{
+//             func.apply(this,args);
+//         },delay);
+//     };
+// }
+// let searchBox=document.getElementById('datas');
+
+// let a=document.getElementById('a');
+// function data(){
+//     fetch("https://jsonplaceholder.typicode.com/users")
+//     .then(res=>res.json())
+//     .then(data1=>{
+//         let a=data1;
+//         console.log(a);
+//         let b=a.map(user=>user.name);
+//         console.log(b);
+// console.log(data1.name)
+// }
+// )
+//     .catch(error=>console.log(error));
+// console.log("The value is ");
+// a.innerHTML="the debounce is applied after 500ms";
+// }
+// const change=dbounce(()=>data());
+
+//40.
+// let tags=["India","Indonesia","Singapore","America"];
+// let n=tags.length;
+// function search(value){
+//     document.getElementById('datalist').innerHTML='';
+//     l=value.length;
+//     for(let i=0;i<n;i++){
+//         if(((tags[i].toLowerCase()).indexOf(value.toLowerCase()))-1){
+//             let node=document.createElement("div");
+//             let val=document.createTextNode(tags[i]);
+//             node.appendChild(val);
+//             document.getElementById("datalist").appendChild(node);
+//         }
+//     }
+// }
+
+//41.
+// let slideIndex = 1;
+// showSlides(slideIndex);
+// function plusSlides(n) {
+//     showSlides(slideIndex += n);
+// }
+// function showSlides(n) {
+//     let slides = document.getElementsByClassName("slide");
+//     if (n > slides.length) {
+//         slideIndex = 1;
+//     }
+//     if (n < 1) {
+//         slideIndex = slides.length;
+//     }
+//     for (let i = 0; i < slides.length; i++) {
+//         slides[i].style.display = "none";
+//     }
+//     slides[slideIndex - 1].style.display = "block";
+
+// }
+
+//42.
+// let slideIndex = 1;
+// showSlides(slideIndex);
+// function showSlides(n) {
+//     let slides = document.getElementsByClassName("slide");
+
+//     for (let i = 0; i < slides.length; i++) {
+//         slides[i].style.display = "none";
+//     }
+//     slideIndex++;
+//     if(slideIndex>slides.length){
+//         slideIndex=1
+//     }
+// slides[slideIndex-1].style.display="block";
+// setTimeout(showSlides,3000)
+// }
+
+//43.
+// let slideIndex = 1;
+// showSlides(slideIndex);
+// function plusSlides(n){
+//     showSlides(slideIndex+=n);
+// }
+// function currentSlide(n){
+//     showSlides(slideIndex=n);
+// }
+// function showSlides(n) {
+//     let dots = document.getElementById('dot');
+//     let slides = document.getElementsByClassName("slide");
+// if(n>slides.length){
+//     slideIndex=1;
+// }
+// if(n<1){
+//     slideIndex=slides.length;
+// }
+//  for (let i = 0; i < slides.length; i++) {
+//         slides[i].style.display = "none";
+//     }
+//   for (let i = 0; i <dots.length; i++) {
+//         dots[i].className = dots[i].className.replace("active", "");
+//     }
+//     slides[slideIndex-1].style.display="block";
+//     dots[slideIndex - 1].className += "active";
+// }
+
+//44.
+// const modal = document.getElementById('modal');
+// const open = document.getElementById('open');
+// const close = document.getElementById('close');
+// function openModel(){
+//     modal.classList.add("show");
+// }
+// function closeModal(){
+//     modal.classList.remove("show");
+// }
+// open.addEventListener("click",openModel);
+// close.addEventListener("click",closeModal);
+
+//45.
+// const modal = document.getElementById('modal');
+// const open = document.getElementById('open');
+// const close = document.getElementById('close');
+// function openModel() {
+//     modal.classList.add("show");
+// }
+// function closeModal() {
+//     modal.classList.remove("show");
+// }
+// open.addEventListener("click", openModel);
+// close.addEventListener("click", closeModal);
+// //for outer the modal box
+// modal.addEventListener("click", (event) => {
+//     if (event.target === modal) {
+//         closeModal();
+//     }
+// });
+// //for escape button
+// document.addEventListener("keydown", (event) => {
+//     if (event.key === "Escape") {
+//         closeModal();
+//     }
+// });
+
+//46.
+// const modal = document.getElementById('modal');
+// const open = document.getElementById('login');
+// const close = document.getElementById('close');
+// function openModel() {
+//     modal.classList.add("show");
+// }
+// function closeModal() {
+//     let email = document.getElementById('mail').value;
+//     let password = document.getElementById('pass').value;
+//     const strong= new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
+
+//     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+//     if (pattern.test(email) && strong.test(password)) {
+//         modal.innerHTML = "User logged in";
+//     }
+//     else {
+//         modal.innerHTML = "Please enter the valid username or password";
+//     }
+//     // modal.classList.remove("show");
+// }
+// open.addEventListener("click", openModel);
+// close.addEventListener("click", closeModal);
+
+//47.
+// const inputs=document.getElementById('inputs');
+// inputs.addEventListener("input",function(e){
+//     const target=e.target;
+//     const val=target.value;
+//     if(isNaN(val)){
+//         target.value="";
+//         return;
+//     }
+//     if(val!=""){
+//         const next=target.nextElementSibling;
+//         if(next){
+//             next.focus();
+//         }
+//     }
+// });
+// inputs.addEventListener("keyup",function(e){
+//     const target=e.target;
+//     const key=e.key.toLowerCase();
+//     if(key=="backspace" || key=="delete"){
+//         target.value="";
+//         const prev=target.previousElementSibling;
+//         if(prev){
+//             prev.focus();
+//         }
+//         return;
+//     }
+// });
+
+//48.
