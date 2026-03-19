@@ -257,10 +257,10 @@
     </ul> -->
 
     <!-- 33. -->
-    <!-- <div class="drop-zone">
-    <span class="drop-zone__prompt">Drop file here or click to upload</span>
-    <input type="file" name="myFile" class="drop-zone__input">
-  </div> -->
+    <!-- <div id="drop" style="border: 2px solid #ccc; padding: 20px;">
+    Drag and drop an image here
+</div>
+<p>File Name:<span id="file">None</span></p> -->
 
     <!-- 34. -->
     <!-- <h3>Kanban board Drag and drop</h3>
@@ -287,16 +287,21 @@
  -->
 
     <!-- 35. -->
-    <!-- <div class="container">
-
-    </div> -->
+    <!-- <h3>Infinite scroll</h3>
+   <div class="container" id="content">
+   </div>
+<div id="load"></div> -->
 
     <!-- 36. -->
     <!-- <div class="container" style="height: 100px; width: 100px;">
     </div> -->
 
     <!-- 37. -->
-    <!-- <div class="container" style="height: 100px; width: 100px;">
+    <!-- <div id="content">
+
+    </div>
+    <div id="loading" style="margin: 20px;height: 500px;">
+
     </div> -->
 
     <!-- 38. -->
@@ -306,19 +311,19 @@
 
     <!-- 39. -->
     <!-- <h3>Debounce API search</h3>
-    <input type="text" id="datas" onkeyup="change()">
-    <div id="a"></div> -->
+    <input type="text" id="searchInput">
+    <div id="results"></div> -->
 
     <!-- 40. -->
     <!-- <h3>Auto suggest search</h3>
-<input type="text" list="datalist" onkeyup="search(this.value)">
-<div id="datalist"></div>
-<datalist id="datalist">
-    <option value="India"></option>
-    <option value="Indonesia"></option>
-    <option value="Singapore"></option>
-    <option value="America"></option>
-</datalist>  -->
+    <div class="container">
+        <div class="search">
+            <input type="text" onkeyup="filter(event)">
+        </div>
+        <ul class="list" id="list">
+
+        </ul>
+    </div> -->
 
     <!-- 41 -->
     <!-- <h3>Image slider using next/previous </h3>
@@ -412,7 +417,7 @@ display: block;
     </div> -->
 
     <!-- 47. -->
-     <!-- <h3>OTP INPUT </h3>
+    <!-- <h3>OTP INPUT </h3>
     <div class="container">
         <div id="inputs" class="inputs">
             <input class="input" type="text" inputmode="numeric" maxlength="1" style="width: 50px;">
@@ -425,7 +430,81 @@ display: block;
     </div> -->
 
     <!-- 48. -->
+    <!-- <h3>OTP paste Automatically</h3>
+  <div id="inputs" class="inputs">
+            <input class="input" type="text" inputmode="numeric" maxlength="1" style="width: 50px;">
+            <input class="input" type="text" inputmode="numeric" maxlength="1" style="width: 50px;">
+            <input class="input" type="text" inputmode="numeric" maxlength="1" style="width: 50px;">
+            <input class="input" type="text" inputmode="numeric" maxlength="1" style="width: 50px;">
+            <input class="input" type="text" inputmode="numeric" maxlength="1" style="width: 50px;">
+            <input class="input" type="text" inputmode="numeric" maxlength="1" style="width: 50px;">
+        </div> -->
 
+    <!-- 49. -->
+    <!-- <style>
+            ul.pagination{
+                display: flex;
+                list-style: none;
+            }
+            ul.pagination li{
+                margin-right: 5px;
+                cursor: pointer;
+            }
+        .active{
+            font-weight: bold;
+        }
+        .content{
+            margin-top: 20px;
+        }
+         </style>
+<h3>Pagination Example</h3>
+<div id="app">
+    <div class="content">
+        <ul id="itemsList">
+
+        </ul>
+        <ul id="pagination" class="pagination" ></ul>
+    </div>
+</div> -->
+
+    <!-- 50. -->
+
+
+    <!-- 51. -->
+    <!-- <h3>By debouncing and the throttle</h3>
+<h2 style="height: 5000px;">Scroll down to see the effect </h2> -->
+
+    <!-- 52. -->
+    <!-- <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        img {
+            width: 300px;
+            height: auto;
+            margin: 10px;
+            transition: opacity 0.5s ease-in-out, background-color 0.5s ease-in-out;
+        }
+
+        img[data-src] {
+            opacity: 0;
+            background-color: antiquewhite;
+        }
+
+        img[data-src].loaded {
+            opacity: 1;
+            background-color: transparent;
+        }
+    </style>
+    <div class="container">
+        <img data-src="img1.jpg">
+        <img data-src="img2.jpg">
+    </div> -->
+
+    <!-- 53. -->
+<label for=""
 
     <script src="revise.js"></script>
 </body>

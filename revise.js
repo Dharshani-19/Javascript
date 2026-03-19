@@ -484,6 +484,24 @@
 //     }, { offset: Number.NEGATIVE_INFINITY }).element;
 // }
 
+//33.
+// const drop = document.getElementById('drop');
+// const fileName = document.getElementById('file');
+// ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+//   drop.addEventListener(eventName, e => { 
+//     e.preventDefault(); e.stopPropagation();
+// }, false);
+// });
+// drop.addEventListener('drop', (e) => {
+//   const file = e.dataTransfer.files[0];
+//   if (file && file.type.startsWith('image/')) {
+//     fileName.textContent = file.name; 
+//   } else {
+//     alert('Please drop an image file.');
+//     fileName.textContent = 'None';
+//   }
+// });
+
 
 //34.
 // const columns = document.querySelectorAll(".task-column");
@@ -560,33 +578,33 @@
 //   });
 // });
 
-35.
-const container = document.querySelector('.container');
-// const URL = 'https://dog.ceo/api/breeds/image/random'
-function loadImag(num = 10) {
-    let i = 0;
-    while (i < num) {
-        // fetch('https://dog.ceo/api/breeds/image/random')
-        // .then(res=>res.json())
-        // .then(data=>{
-        //     const img=document.createElement('img');
-        //     img.src=`${data.message}`
-        //     container.appendChild(img);
-        // })
-        const data = document.createElement('p');
-        console.log(i);
-        container.innerHTML=i;
-        container.appendChild(data);
-        i++;
-    }
-}
-loadImag();
-window.addEventListener('scroll', () => {
-    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
-        loadImag();
-    }
-})
-
+// 35.
+// const content = document.getElementById('content');
+// const load = document.getElementById('load');
+// let current = 1;
+// const items = 10;
+// let isLoading = false;
+// async function loadItems() {
+//     if (isLoading) return;
+//     isLoading = true;
+//         await new Promise(resolve => setTimeout(resolve, 1000));
+//     for (let i = 0; i < items; i++) {
+//         const item = document.createElement('div');
+//         item.textContent = `Item ${(current - 1) * items + i + 1}`;
+//         item.style.padding = '20px';
+//         content.appendChild(item);
+//     }
+//     current++;
+//     isLoading = false;
+// }
+// const observer = new IntersectionObserver((entries) => {
+//     if (entries[0].isIntersecting) {
+//         loadItems();
+//     }
+// }, { 
+//     threshold: 1.0
+//  });
+// observer.observe(load);
 
 //36.
 // const container=document.querySelector('.container');
@@ -611,6 +629,57 @@ window.addEventListener('scroll', () => {
 //     }
 // })
 
+//37.
+// let current=1;
+// let loading=false;
+// const contentDiv=document.getElementById('content');
+// const loadingDiv=document.getElementById('loading');
+// const getPosts=async()=>{
+//     try{
+//         let response=await fetch("https://jsonplaceholder.typicode.com/users");
+//         return await response.json();
+//     }
+//     catch(e){
+//         throw new Error(e.message);
+//     }
+// }
+// const appendData=(data)=>{
+//     data.forEach(item=>{
+//         const div=document.createElement('div');
+// div.innerHTML=`<h3>Name: ${item.name} 
+// Email: ${item.email}   
+// Phone Number: ${item.phone}<br></h3>`;
+// contentDiv.appendChild(div);
+//     });
+// }
+// const observer=new IntersectionObserver(async(entries)=>{
+//     if(entries[0].isIntersecting && !loading){
+//         loading=true;
+//         current++;
+//         try{
+//             const data=await getPosts(current);
+//             appendData(data);
+//         }catch(e){
+//             console.log(e.message);
+//         }
+//         loading=false;
+//     }
+// },{threshold:1.0});
+// observer.observe(loadingDiv);
+// window.addEventListener('DOMContentLoaded',async()=>{
+//     try{
+//         const posts=await getPosts(current);
+//         if(posts){
+//             appendData(posts);
+//         }else{
+//             console.log("post not found");
+//         }
+//     }catch(e){
+//         console.log(e.message);
+//     }
+// });
+
+
 //38.
 // function dbounce(func,delay=500){
 //     let timeout;
@@ -631,49 +700,71 @@ window.addEventListener('scroll', () => {
 // const change=dbounce(()=>data());
 
 //39.
-// function dbounce(func,delay=500){
-//     let timeout;
-//     return function(...args){
-//         clearTimeout(timeout);
-//         timeout=setTimeout(()=>{
-//             func.apply(this,args);
-//         },delay);
+// function debounce(func, delay) {
+//     let timeoutId;
+//     return function(...args) {
+//         clearTimeout(timeoutId);
+//         timeoutId = setTimeout(() => {
+//             func.apply(this, args);
+//         }, delay);
 //     };
 // }
-// let searchBox=document.getElementById('datas');
 
-// let a=document.getElementById('a');
-// function data(){
-//     fetch("https://jsonplaceholder.typicode.com/users")
-//     .then(res=>res.json())
-//     .then(data1=>{
-//         let a=data1;
-//         console.log(a);
-//         let b=a.map(user=>user.name);
-//         console.log(b);
-// console.log(data1.name)
-// }
-// )
-//     .catch(error=>console.log(error));
-// console.log("The value is ");
-// a.innerHTML="the debounce is applied after 500ms";
-// }
-// const change=dbounce(()=>data());
+// const fetchname = async (query) => {
+//     try {
+//         const response = await fetch('https://jsonplaceholder.typicode.com/users');
+//         const users = await response.json(); 
+//         const matching = users
+//             .filter(user => user.name.toLowerCase().includes(query.toLowerCase()))
+//             .map(user => user.name); 
+//         const resultsDiv = document.getElementById('results');
+//         resultsDiv.innerHTML = ''; 
+
+//         if (matching.length > 0) {
+//             const ul = document.createElement('ul');
+//             matching.forEach(username => {
+//                 const li = document.createElement('li');
+//                 li.textContent = username;
+//                 ul.appendChild(li);
+//             });
+//             resultsDiv.appendChild(ul);
+//         } else {
+//             resultsDiv.textContent = 'No matching users found.';
+//         }
+
+//     } catch (error) {
+//         console.error('Error fetching data:', error);
+//         document.getElementById('results').textContent = 'Error fetching data.';
+//     }
+// };
+
+// const debounced = debounce(fetchname, 500);
+
+// document.getElementById('searchInput').addEventListener('input', (event) => {
+//     debounced(event.target.value);
+// });
 
 //40.
-// let tags=["India","Indonesia","Singapore","America"];
-// let n=tags.length;
-// function search(value){
-//     document.getElementById('datalist').innerHTML='';
-//     l=value.length;
-//     for(let i=0;i<n;i++){
-//         if(((tags[i].toLowerCase()).indexOf(value.toLowerCase()))-1){
-//             let node=document.createElement("div");
-//             let val=document.createTextNode(tags[i]);
-//             node.appendChild(val);
-//             document.getElementById("datalist").appendChild(node);
-//         }
+// const names=[
+//     {name:"India"},
+//     {name:"singapore"},
+//     {name:"Indonesia"},
+//     {name:"america"},
+// ];
+// function render(uNames){
+//     let li="";
+//     for(let i=0;i<uNames.length;i++){
+//         li+=`<li> ${uNames[i].name}</li>`;
 //     }
+//     document.getElementById('list').innerHTML=li;
+// }
+// render(names);
+// filter=(event)=>{
+//     let search=event.target.value;
+//     let filter=names.filter((v)=>{
+//         return v.name.includes(search);
+//     });
+//     render(filter);
 // }
 
 //41.
@@ -834,3 +925,151 @@ window.addEventListener('scroll', () => {
 // });
 
 //48.
+// const inputs=document.querySelectorAll('.input');
+// inputs.forEach((input)=>{
+//     input.addEventListener("paste",(e)=>{
+//         e.preventDefault();
+//         const paste=e.clipboardData.getData("text").split("");
+//         console.log(paste);
+//         inputs.forEach((inputField,i)=>{
+//             if(paste[i]){
+//                 inputField.value=paste[i];
+//                 if(i<inputs.length-1) inputs[i+1].focus();
+//             }
+//         });
+//     });
+// });
+
+// //49.
+// document.addEventListener('DOMContentLoaded',function(){
+//     const items=[
+//         {id:1,name:'Item 1'},
+//         {id:2,name:'Item 2'},
+//         {id:3,name:'Item 3'},
+//         {id:4,name:'Item 4'},
+//         {id:5,name:'Item 5'},
+//         {id:6,name:'Item 1'},
+//         {id:7,name:'Item 2'},
+//         {id:8,name:'Item 3'},
+//         {id:9,name:'Item 4'},
+//         {id:10,name:'Item 10'},
+//                 {id:1,name:' second Item 1'},
+//         {id:2,name:'Item 2'},
+//         {id:3,name:'Item 3'},
+//         {id:4,name:'Item 4'},
+//         {id:5,name:'Item 5'},
+//         {id:6,name:'Item 1'},
+//         {id:7,name:'Item 2'},
+//         {id:8,name:'Item 3'},
+//         {id:9,name:'Item 4'},
+//         {id:10,name:'Item 10'},
+//         {id:1,name:' third Item 1'},
+//         {id:2,name:'Item 2'},
+//         {id:3,name:'Item 3'},
+//         {id:4,name:'Item 4'},
+//         {id:5,name:'Item 5'},
+//         {id:6,name:'Item 1'},
+//         {id:7,name:'Item 2'},
+//         {id:8,name:'Item 3'},
+//         {id:9,name:'Item 4'},
+//         {id:10,name:'Item 10'},
+
+
+//     ];
+//     const itemsPage=10;
+//     let currentPage=1;
+//     function render(){
+//         const itemList=document.getElementById('itemsList');
+//         const start=(currentPage-1)*itemsPage;
+//         const end=start+itemsPage;
+//         const display=items.slice(start,end);
+//         itemList.innerHTML='';
+//         display.forEach(item=>{
+//             const listItem=document.createElement('li');
+//             listItem.textContent=item.name;
+//             itemList.appendChild(listItem);
+//         });
+//     }
+//     function renderPage(){
+//         const pagination=document.getElementById('pagination');
+//         const pageCount=Math.ceil(items.length/itemsPage);
+//         pagination.innerHTML='';
+//         for(let i=1;i<=pageCount;i++){
+//             const pageLink=document.createElement('li');
+//             pageLink.textContent=i;
+//             pageLink.addEventListener('click',function(){
+//                 currentPage=i;
+//                 render();
+//                 renderPage();
+//             });
+//             if(i===currentPage){
+//                 pageLink.classList.add("active");
+//             }
+//             pagination.appendChild(pageLink);
+//         }
+//     }
+//     render();
+//     renderPage();
+// })
+
+//50.
+
+
+
+//51.
+// function debounce(call,delay){
+//     let timeout;
+//     return function(...args){
+//         if(timeout){
+//             clearTimeout(timeout)
+//         }
+//         timeout=setTimeout(()=>{
+//             call.apply(this,args);
+//         },delay);
+//     };
+// };
+// function throttle(func,delay){
+//     let last=0;
+//     return function(...args){
+//         const now=new Date().getTime();
+//         if(now-last>=delay){
+//             last=now;
+//             func.apply(this,args);
+//         }
+//     }
+// }
+// const handle=()=>{
+//     console.log("Debounced function",window.scrollY);
+// };
+//     let scrolls=debounce(handle,1000);
+//     window.addEventListener('scroll',scrolls);
+
+//     const tHandle=()=>{
+//         console.log("Throttle function",window.scrollY);
+//     };
+//     const throttles=throttle(tHandle,5000);
+//     window.addEventListener('scroll',throttles);
+
+// 52.
+// const options={
+//     root:null,
+//     rootMargin:'0px',
+//     threshold:0.2,
+// };
+// const lazyload=(entries,observer)=>{
+//     entries.forEach((entry)=>{
+//         if(entry.isIntersecting){
+//             const lazyElement=entry.target;
+//             lazyElement.src=lazyElement.dataset.src;
+//             lazyElement.removeAttribute('data-src');
+//             observer.unobserve(lazyElement);
+//         }
+//     });
+// };
+// const observer=new IntersectionObserver(lazyload,options);
+// const lazyElements=document.querySelectorAll('[data-src]');
+// lazyElements.forEach((element)=>{
+//     observer.observe(element);
+// });
+
+//53.
