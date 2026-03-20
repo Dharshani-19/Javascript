@@ -1013,8 +1013,60 @@
 // })
 
 //50.
+// document.addEventListener('DOMContentLoaded',init,false);
+// let data,table,sortCol;
+// let sortAsc=false;
+// const pageSize=3;
+// let curPage=1;
+// async function init() {
+//     table=document.querySelector('#catTable tbody');
+//     let resp=await fetch('https://www.raymondcamden.com/.netlify/functions/get-cats');
+//     data=await resp.json();
+//     renderTable();
+// document.querySelectorAll('#catTable thead tr th').forEach(t => {
+//      t.addEventListener('click', sort, false);
+//   });
+//    document.querySelector('#nextButton').addEventListener('click', nextPage, false);
+//   document.querySelector('#prevButton').addEventListener('click', previousPage, false);
+// }
+// function renderTable() {
+//   let result = '';
+//   data.filter((row, index) => {
+//         let start = (curPage-1)*pageSize;
+//         let end =curPage*pageSize;
+//         if(index >= start && index < end) return true;
+//   }).forEach(c => {
+//      result += `<tr>
+//      <td>${c.name}</td>
+//      <td>${c.age}</td>
+//      <td>${c.breed}</td>
+    //  <td>${c.gender}</td>
+    //  </tr>`;
+//   });
+//   table.innerHTML = result;
+// }
+// function sort(e) {
+//   let thisSort = e.target.dataset.sort;
+//   if(sortCol === thisSort) sortAsc = !sortAsc;
+//   sortCol = thisSort;
+//   console.log('sort dir is ', sortAsc);
+//   data.sort((a, b) => {
+//     if(a[sortCol] < b[sortCol]) return sortAsc?1:-1;
+//     if(a[sortCol] > b[sortCol]) return sortAsc?-1:1;
+//     return 0;
+//   });
+//   renderTable();
+// }
 
+// function previousPage() {
+//   if(curPage > 1) curPage--;
+//   renderTable();
+// }
 
+// function nextPage() {
+//   if((curPage * pageSize) < data.length) curPage++;
+//   renderTable();
+// }
 
 //51.
 // function debounce(call,delay){
@@ -1073,3 +1125,215 @@
 // });
 
 //53.
+
+
+
+//54.
+// document.addEventListener('DOMContentLoaded', () => {
+//     const form = document.getElementById('autoSaveForm');
+//     const formElements = form.elements;
+//     const storageKey = 'autoSaveFormData';
+//     function saveFormData() {
+//         const data = {
+//             name: formElements.name.value,
+//             email: formElements.email.value,
+//             message: formElements.message.value
+//         };
+//         localStorage.setItem(storageKey, JSON.stringify(data));
+//     }
+//     function restore() {
+//         const savedData = localStorage.getItem(storageKey);
+//         if (savedData) {
+//             const data = JSON.parse(savedData);
+//             formElements.name.value = data.name || '';
+//             formElements.email.value = data.email || '';
+//             formElements.message.value = data.message || '';
+//         }
+//     }
+//     form.addEventListener('input', saveFormData);
+//     restore();
+// });
+
+//55.
+// const dataContainer = document.getElementById('data-container');
+// const loader = document.getElementById('loader');
+// function data(ms) {
+//     return new Promise(resolve => setTimeout(resolve, ms));
+// }
+// async function fetchWithRetry(url, max = 3, delay = 1000) {
+//     let retries = 0;
+//     while (retries < max) {
+//         try {
+//             const response = await fetch(url);
+//             return await response.json(); 
+//         } catch (error) {
+//             retries++;
+//             if (retries >= max) {
+//                 throw new Error(`All ${max} retries failed: ${error.message}`);
+//             }
+//             await data(delay); 
+//             delay *= 2; 
+// }
+//     }
+// }
+// async function startFetch() {
+//     loader.style.display = 'block'; 
+//     dataContainer.innerHTML = 'Fetching data';
+//     const apiUrl = 'https://jsonplaceholder.typicode.com/posts/1'; 
+//     try {
+//         const data = await fetchWithRetry(apiUrl, 3, 500);
+//         dataContainer.innerHTML = 'Success!' + JSON.stringify(data, null, 2);
+//     } catch (error) {
+//         dataContainer.innerHTML = 'Error' + error.message;
+//         console.error(error);
+//     } 
+// }
+
+//56.
+// const content=document.getElementById('class').innerHTML;
+// const search=document.getElementById('search');
+// const value=document.getElementById('class');
+// search.addEventListener('input',function(){
+//     const term=this.value.trim();
+//     value.innerHTML=content;
+//     if(term.length>0){
+//         const regex = new RegExp(`(${term})`, 'gi');
+//         const highlight=value.innerHTML.replace(regex,`<mark>$&</mark>`)
+//         value.innerHTML=highlight;
+//     }
+// });
+
+//57.
+// document.addEventListener('DOMContentLoaded', () => {
+//     const inputField = document.getElementById('inputField');
+//     const undoBtn = document.getElementById('undoBtn');
+//     const redoBtn = document.getElementById('redoBtn');
+//     let h= [''];
+//     let history = 0;
+//     function updateState(newState) {
+//         if (history < h.length - 1) {
+//             h = h.slice(0, history + 1);
+//         }
+//     h.push(newState);
+//         history++;
+//         updateButtonStates();
+//     }
+//     function undo() {
+//         if (history > 0) {
+//             history--;
+//             inputField.value = h[history];
+//             updateButtonStates();
+//         }
+//     }
+//     function redo() {
+//         if (history < h.length - 1) {
+//             history++;
+//             inputField.value = h[history];
+//             updateButtonStates();
+//         }
+//     }
+//     function updateButtonStates() {
+//         undoBtn.disabled = history === 0;
+//         redoBtn.disabled = history === h.length - 1;
+//     }
+//     inputField.addEventListener('keydown', (event) => {
+//         if (event.key === ' ') {
+//             setTimeout(() => {
+//                 updateState(inputField.value);
+//             }, 0);
+//         }
+//     });
+//         inputField.addEventListener('blur', () => {
+//         if (inputField.value !== h[history]) {
+//             updateState(inputField.value);
+//         }
+//     });
+//     undoBtn.addEventListener('click', undo);
+//     redoBtn.addEventListener('click', redo);
+//     updateButtonStates();
+// });
+
+
+//58.
+// let currentStep = 1;
+// const totalSteps = 3;
+// const nameInput = document.getElementById('name');
+// const ageInput = document.getElementById('age');
+// const displayName = document.getElementById('display-name');
+// const displayAge = document.getElementById('display-age');
+
+// function showStep(stepNumber) {
+//     document.querySelectorAll('.step').forEach(step => {
+//         step.classList.remove('active');
+//     });
+//     document.getElementById('step-' + stepNumber).classList.add('active');
+//     currentStep = stepNumber;
+// }
+// function nextStep(stepNumber) {
+//     if (stepNumber === 1) {
+//         if (nameInput.value.trim() === "") {
+//             alert("Please enter your name.");
+//             return;
+//         }
+//     } else if (stepNumber === 2) {
+//         if (ageInput.value.trim() === "") {
+//             alert("Please enter your age.");
+//             return;
+//         }
+//         displayName.textContent = nameInput.value;
+//         displayAge.textContent = ageInput.value;
+//     }
+//     if (stepNumber < totalSteps) {
+//         showStep(stepNumber + 1);
+//     }
+// }
+// function prevStep(stepNumber) {
+//     if (stepNumber > 1) {
+//         showStep(stepNumber - 1);
+//     }
+// }
+// document.addEventListener('DOMContentLoaded', (event) => {
+//     showStep(1);
+// });
+
+
+//59.
+// function online(){
+//     let x=navigator.onLine;
+//     if(x===true){
+// document.getElementById('demo').innerHTML="You are online";
+//     }
+//     else{
+//         document.getElementById('demo').innerHTML="You are offline";
+//     }
+// }
+
+//60.
+// let idleTimer;
+//         const idle = 1000; 
+//         const modal = document.getElementById('idleModal');
+//         function startTimer() {
+//             idleTimer = setTimeout(showModal, idle);
+//         }
+
+//         function resetTimer() {
+//             clearTimeout(idleTimer);
+//             startTimer();
+//             modal.style.display = 'none';
+//         }
+
+//         function showModal() {
+//             modal.style.display = 'block';
+//         }
+//         function stayLoggedIn() {
+//             resetTimer(); 
+//         }
+//         function logout() {
+//             window.location.href = "login.html"; 
+//         }
+//         window.onload = startTimer;
+//         document.onmousemove = resetTimer;
+//         document.onkeypress = resetTimer;
+//         document.onclick = resetTimer;
+//         document.onscroll = resetTimer;
+
