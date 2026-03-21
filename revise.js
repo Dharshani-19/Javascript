@@ -1,57 +1,62 @@
-//1.
-// let largest1 = document.getElementById('result');
-// let smallest1 = document.getElementById('result1');
-// function largeAndSmall() {
-//     const answer = document.getElementById('text').value;
-//     console.log("2", answer);
-//     console.log("1")
-//     let words = answer.split('');
-//     console.log("22",words,words.length);
-//     if (words.length === 0) {
-//         return {
-//             smallest: "", largest: ""
-//         };
+// //1.
+// function findWords() {
+//     const inputText = document.getElementById('textInput').value;
+//     const words = inputText.match(/\b\w+\b/g);
+//     if (!words || words.length === 0 ) {
+//         document.getElementById('error').textContent = "No words found.";
+        
+//         return;
 //     }
-//     let smallest = words[0];
-//     let largest = words[0];
-//     for (let i = 0; i < words.length; i++) {
-//         let word = words[i];
-//         if (word.length < smallest.length) {
-//             smallest = word;
+//     let largestWord = words[0];
+//     let smallestWord = words[0];
+//     const digit=/\d/;
+//     if(digit.test(inputText)){
+//             document.getElementById('error').textContent = "Entered value is Number Please enter the character";
+
+//     }
+//     else{
+//  for (let i = 1; i < words.length; i++) {
+//         const currentWord = words[i];
+//         if (currentWord.length > largestWord.length) {
+//             largestWord = currentWord;
 //         }
-//         if (word.length > largest.length) {
-//             largest = word;
+//         if (currentWord.length < smallestWord.length) {
+//             smallestWord = currentWord;
 //         }
 //     }
-//     console.log(smallest, largest);
-//     largest1.innerHTML = "largest word"+largest;
-//     smallest1.innerHTML ="smallest word"+smallest;
+//     document.getElementById('largest').textContent = largestWord;
+//     document.getElementById('smallest').textContent = smallestWord;
+//     }
+   
 // }
 
+
 //2.
-// let res=document.getElementById('result');
-// function toCheck(){
-//     const character=document.getElementById('vowel').value;
-//   if(character=='a'||character=='e'||character=='i'||character=='o'||character=='u'){
-//     res.innerHTML="Vowel";
-//   } else{
-//     res.innerHTML="Not a Vowel";
-//   }
-// }
+let res=document.getElementById('result');
+function toCheck(){
+    const character=document.getElementById('vowel').value;
+  if(character=='a'||character=='e'||character=='i'||character=='o'||character=='u'){
+    res.innerHTML="Vowel";
+  } else{
+    res.innerHTML="Not a Vowel";
+  }
+}
 
 //3.
 // let final=document.getElementById('check');
 // function result(){
 //     let value=document.getElementById('first').value;
-// for(let i=0;i<value.length;i++){
+// // for(let i=0;i<value.length;i++){
+//     // if(value.charAt(0)===value.charAt(value.length-1)){
 //     if(value.charAt(0)===value.charAt(value.length-1)){
 //         final.innerHTML="First and last characters are same";
-//         alert("First and last characters are same")
+//                 alert("Characters are same");
+
 //     }
 //     else{
 //         final.innerHTML="First and last characters are not same";
 //     }
-// }
+// // }
 // }
 
 //4.
@@ -68,8 +73,8 @@
 //     let a = 0;
 //     let result = document.getElementById('data').value;
 //     console.log(typeof result);
-//     // let values=Number (result);
-//     //     console.log(values);
+//     let values=Number (result);
+//         console.log(values);
 //     for (let i = 0; i < result.length; i++) {
 //         console.log(result.charAt(i));
 //         if (a < result.charAt(i)) {
@@ -80,21 +85,21 @@
 // }
 
 //6.
-// function check(){
-// let input=document.querySelectorAll('#check');
-// for(let i=0;i<input.length;i++){
-//     input[i].checked=true;
+// function check() {
+//     let input = document.querySelectorAll('#check');
+//     for (let i = 0; i < input.length; i++) {
+//         input[i].checked = true;
+//     }
 // }
+// function unCheck() {
+//     let input = document.querySelectorAll('#check');
+//     for (let i = 0; i < input.length; i++) {
+//         input[i].checked = false;
+//     }
 // }
-// function unCheck(){
-// let input=document.querySelectorAll('#check');
-// for(let i=0;i<input.length;i++){
-//     input[i].checked=false;
-// }
-// }
-// function toggle(){
-// let input=document.querySelectorAll('#check');
-// input.checked=!input.checked;
+// function toggle() {
+//     let input = document.querySelectorAll('#check');
+//     input.forEach(cb => cb.checked = !cb.checked);
 // }
 
 
@@ -103,18 +108,20 @@
 // function sum(){
 // let ans=document.getElementById('sum').value;
 // const add=ans.split(',');
-// const array=add.map(Number);
+// console.log(add);
+
+// const array=add.map((i)=>Number(i));
 // const value=array.reduce((acc,current)=>acc+current,0)
 // console.log(value);
 // answer.innerHTML="Addition "+value
-
 // }
+
 // function multi(){
 // let ans=document.getElementById('sum').value;
 // const add=ans.split(',');
 // const array=add.map(Number);
 // const value=array.reduce((acc,current)=>acc*current,1)
-// console.log(value);
+// console.log(array);
 // answer.innerHTML="Multiplication "+value
 // }
 
@@ -123,7 +130,7 @@
 // function replace() {
 //     let ans = document.getElementById('res1').value;
 //     const add = ans.split(',');
-//     const array = add.map(Number);
+//     const array = add;
 //     console.log(array);
 //  let index=document.getElementById('res2').value;
 //  let repl=document.getElementById('res3').value;
@@ -151,12 +158,12 @@
 //     let phone = document.getElementById('phone').value;
 //     let zipcode = document.getElementById('zip').value;
 //     let address = document.getElementById('add').value;
-//     answer.innerHTML = ` FirstName ${fname}
-//     lastName ${lname}
-//     Email ${email}
-//     Phone Number ${phone}
-//     Zipcode ${zipcode}
-//     Address ${address}`
+//     answer.innerHTML = ` FirstName ${fname} <br>
+//     lastName ${lname} <br>
+//     Email ${email} <br>
+//     Phone Number ${phone} <br>
+//     Zipcode ${zipcode} <br>
+//     Address ${address} <br>`
 // }
 
 //11.
@@ -171,11 +178,11 @@
 // function parameter() {
 //     let url = "http://www.mitrahsoft.com?technology=coldfusion&people=veryNice";
 //     let param = url.split('?')[1];
-//     console.log("1",param);
-//     answer.innerHTML=param;
+//     // console.log("1",param);
+//     // answer.innerHTML=param;
 //     let query = new URLSearchParams(param);
 //     for (let a of query.entries()) {
-//         answer.textContent =`${a[0]} : ${a[1]}`
+//         answer.innerHTML =`${a[0]} : ${a[1]}`
 //         console.log(a[0] + ":" + a[1]);
 //     }
 // }
@@ -222,6 +229,8 @@
 //     console.log(count2);
 //     answer1.innerHTML = "The vowel count is " + count1;
 //     answer2.innerHTML = "The consonants count is " + count2;
+//     count1 = 0;
+//     count2 = 0;
 
 // }
 
@@ -231,7 +240,7 @@
 // function duplicate() {
 //     let data = document.getElementById('count').value;
 //     const add = data.split(',');
-//     const array = add.map(Number);
+//     const array = add;
 //     const result=new Set(array);
 //     let a=[...result];
 //     console.log(a);
@@ -253,10 +262,14 @@
 // let a=/^\d+$/;
 // function data(){
 //     let value=document.getElementById('number').value;
+//     console.log(a.test(value));
+    
 //     if(value===""){
 //         answer.innerHTML="Please enter the value";
 //     }
-//     else{
+//     else if(!(a.test(value))) {
+//         answer.innerHTML="Letters not allowed and Special characters not allowed";
+//     } else {
 //         if(value%2==0){
 //             answer.innerHTML="The given value is even";
 //         }
@@ -300,10 +313,10 @@
 // const upper=/[A-Z]/;
 // const lower=/[a-z]/;
 // const digit=/\d/;
-// const special=/[!@#$%^&*(),.?":{}|<>]/;
+// const special=/[!@#$%^&*(),.?":{}`|<>]/;
 // if(!minLen.test(value)){
 //     console.log("Minimum length 8 characters");
-//     answer.innerHTML="Minimum length 8 characters" 
+//     answer.innerHTML="Minimum length 8 characters"
 // }
 // else if(!upper.test(value)){
 //     console.log("uppercase wanted");
@@ -354,7 +367,7 @@
 
 // }
 
-//24.
+// 24.
 // let answer=document.getElementById('result');
 // function fun(){
 //     let value=document.getElementById('copy').value;
@@ -362,7 +375,7 @@
 //     answer.innerHTML="The value inside the text field is copied ";
 // }
 
-//25.
+// 25.
 // function check(){
 //     let value=document.getElementById('password');
 //     if(value.type==="password"){
@@ -419,6 +432,7 @@
 //30.
 // let answer=document.getElementById('result');
 // function start(){
+    
 //     let cValue=document.getElementById('count').value;
 //     let dTimer=setInterval(function(){
 //         cValue--;
@@ -463,7 +477,7 @@
 //     e.preventDefault();
 //     const drageOver = getDrag(list, e.clientY);
 //     document.querySelectorAll('sort').forEach
-//         (item => itemm.classList.remove('over'));
+//         (item => item.classList.remove('over'));
 //     if (drageOver) {
 //         drageOver.classList.remove('over');
 //         list.insertBefore(drag, drageOver);
@@ -488,14 +502,14 @@
 // const drop = document.getElementById('drop');
 // const fileName = document.getElementById('file');
 // ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-//   drop.addEventListener(eventName, e => { 
+//   drop.addEventListener(eventName, e => {
 //     e.preventDefault(); e.stopPropagation();
 // }, false);
 // });
 // drop.addEventListener('drop', (e) => {
 //   const file = e.dataTransfer.files[0];
 //   if (file && file.type.startsWith('image/')) {
-//     fileName.textContent = file.name; 
+//     fileName.textContent = file.name;
 //   } else {
 //     alert('Please drop an image file.');
 //     fileName.textContent = 'None';
@@ -601,7 +615,7 @@
 //     if (entries[0].isIntersecting) {
 //         loadItems();
 //     }
-// }, { 
+// }, {
 //     threshold: 1.0
 //  });
 // observer.observe(load);
@@ -646,8 +660,8 @@
 // const appendData=(data)=>{
 //     data.forEach(item=>{
 //         const div=document.createElement('div');
-// div.innerHTML=`<h3>Name: ${item.name} 
-// Email: ${item.email}   
+// div.innerHTML=`<h3>Name: ${item.name}
+// Email: ${item.email}
 // Phone Number: ${item.phone}<br></h3>`;
 // contentDiv.appendChild(div);
 //     });
@@ -695,7 +709,7 @@
 // let a=document.getElementById('a');
 // function data(){
 // console.log("The value is ");
-// a.innerHTML="the debounce is applied after 500ms",searchBox.value;
+// a.innerHTML=`the debounce is applied after 500ms ${searchBox.value}`;
 // }
 // const change=dbounce(()=>data());
 
@@ -713,12 +727,12 @@
 // const fetchname = async (query) => {
 //     try {
 //         const response = await fetch('https://jsonplaceholder.typicode.com/users');
-//         const users = await response.json(); 
+//         const users = await response.json();
 //         const matching = users
 //             .filter(user => user.name.toLowerCase().includes(query.toLowerCase()))
-//             .map(user => user.name); 
+//             .map(user => user.name);
 //         const resultsDiv = document.getElementById('results');
-//         resultsDiv.innerHTML = ''; 
+//         resultsDiv.innerHTML = '';
 
 //         if (matching.length > 0) {
 //             const ul = document.createElement('ul');
@@ -1040,8 +1054,8 @@
 //      <td>${c.name}</td>
 //      <td>${c.age}</td>
 //      <td>${c.breed}</td>
-    //  <td>${c.gender}</td>
-    //  </tr>`;
+//  <td>${c.gender}</td>
+//  </tr>`;
 //   });
 //   table.innerHTML = result;
 // }
@@ -1125,8 +1139,29 @@
 // });
 
 //53.
-
-
+// const eventBus = {
+//             listeners: {},
+//             subscribe(event, callback) {
+//                 if (!this.listeners[event]) this.listeners[event] = [];
+//                 this.listeners[event].push(callback);
+//             },
+//             publish(event, data) {
+//                 if (this.listeners[event]) {
+//                     this.listeners[event].forEach(callback => callback(data));
+//                 }
+//             }
+//         };
+//         eventBus.subscribe("userLogin", (data) => {
+//             document.getElementById("welcomeMessage").innerText =
+//                 `Welcome, ${data.name}!`;
+//             console.log("User logged in:", data.name);
+//         });
+//         document.getElementById("loginBtn").addEventListener("click", () => {
+//             const name = document.getElementById("usernameInput").value;
+//             if (name) {
+//                 eventBus.publish("userLogin", { name: name });
+//             }
+//         });
 
 //54.
 // document.addEventListener('DOMContentLoaded', () => {
@@ -1165,28 +1200,28 @@
 //     while (retries < max) {
 //         try {
 //             const response = await fetch(url);
-//             return await response.json(); 
+//             return await response.json();
 //         } catch (error) {
 //             retries++;
 //             if (retries >= max) {
 //                 throw new Error(`All ${max} retries failed: ${error.message}`);
 //             }
-//             await data(delay); 
-//             delay *= 2; 
+//             await data(delay);
+//             delay *= 2;
 // }
 //     }
 // }
 // async function startFetch() {
-//     loader.style.display = 'block'; 
+//     loader.style.display = 'block';
 //     dataContainer.innerHTML = 'Fetching data';
-//     const apiUrl = 'https://jsonplaceholder.typicode.com/posts/1'; 
+//     const apiUrl = 'https://jsonplaceholder.typicode.com/posts/1';
 //     try {
 //         const data = await fetchWithRetry(apiUrl, 3, 500);
 //         dataContainer.innerHTML = 'Success!' + JSON.stringify(data, null, 2);
 //     } catch (error) {
 //         dataContainer.innerHTML = 'Error' + error.message;
 //         console.error(error);
-//     } 
+//     }
 // }
 
 //56.
@@ -1310,7 +1345,7 @@
 
 //60.
 // let idleTimer;
-//         const idle = 1000; 
+//         const idle = 1000;
 //         const modal = document.getElementById('idleModal');
 //         function startTimer() {
 //             idleTimer = setTimeout(showModal, idle);
@@ -1326,10 +1361,10 @@
 //             modal.style.display = 'block';
 //         }
 //         function stayLoggedIn() {
-//             resetTimer(); 
+//             resetTimer();
 //         }
 //         function logout() {
-//             window.location.href = "login.html"; 
+//             window.location.href = "login.html";
 //         }
 //         window.onload = startTimer;
 //         document.onmousemove = resetTimer;
